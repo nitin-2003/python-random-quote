@@ -1,11 +1,22 @@
-def main():
-  # print("Keep it logically awesome.")
+import requests
 
-  #f = open("quotes.txt")
-  #quotes = f.readlines()
-  #f.close()
 
-  #print(quotes)
+## function that gets the random quote
+def get_random_quote():
+	try:
+		## making the get request
+		response = requests.get("https://api-ninjas.com/api/quotes")
+		if response.status_code == 200:
+			## extracting the core data
+			json_data = response.json()
+			data = json_data['data']
 
-if __name__== "__main__":
-  main()
+			## getting the quote from the data
+			print(data[0]['quoteText'])
+		else:
+			print("Error while getting quote")
+	except:
+		print("Something went wrong! Try Again!")
+
+
+get_random_quote()
